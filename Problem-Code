@@ -1,0 +1,54 @@
+class Solution {
+    public List<List<Integer>> findDifference(int[] nums1, int[] nums2) {
+     Arrays.sort(nums1);
+     Arrays.sort(nums2);
+     HashMap<Integer,Integer> map1=new HashMap<>();
+     HashMap<Integer,Integer> map2=new HashMap<>();
+     List<List<Integer>> lists=new ArrayList<>();
+     List<Integer> l1=new ArrayList<>();
+     List<Integer> l2=new ArrayList<>();
+     int a=nums1.length-1,b=nums2.length-1;
+     for(int i=0 ; i<=a ; i++){
+      if(map1.containsKey(nums1[i]))
+       map1.put(nums1[i],map1.get(nums1[i])+1);
+      else map1.put(nums1[i],1);
+     }
+     for(int i=0 ; i<=b ; i++){
+      if(map2.containsKey(nums2[i]))
+       map2.put(nums2[i],map2.get(nums2[i])+1);
+      else map2.put(nums2[i],1);
+     }
+     while(a>=0 || b>=0){
+      if(a>=0 && b>=0){
+      if(nums1[a]>nums2[b]){
+       if(!l1.contains(nums1[a]))
+       l1.add(nums1[a]);
+       a--;
+      }
+      else if(nums1[a]<nums2[b]){
+      if(!l2.contains(nums2[b]))
+       l2.add(nums2[b]);
+       b--;
+      }
+      else if(nums1[a]==nums2[b]){
+       a=a-map1.get(nums1[a]);
+       b=b-map2.get(nums2[b]);
+      }}
+      else if(a>=0 && b<0){
+       if(!l1.contains(nums1[a]))
+     l1.add(nums1[a]);
+     a--;
+      }
+     else if(b>=0 && a<0){
+     if(!l2.contains(nums2[b]))
+     l2.add(nums2[b]);  
+     b--;
+      }
+     }
+    lists.add(l1);
+    lists.add(l2);
+    Collections.sort(l1);
+    Collections.sort(l2);
+    return lists;
+    }
+}
